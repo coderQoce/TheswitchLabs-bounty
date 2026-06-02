@@ -611,6 +611,19 @@
       color: var(--text-secondary);
     }
 
+    .cursor-shadow {
+      position: fixed;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 60px 20px rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.2s ease;
+    }
+
     footer {
       text-align: center;
       padding: 4rem 3rem;
@@ -703,14 +716,16 @@
       </div>
       <nav>
         <div class="nav-title">DISCOVER</div>
-        <a href="../index.html" class="nav-link"><i data-lucide="home"></i> Home</a>
-        <a href="../about-us.html" class="nav-link"><i data-lucide="info"></i> About Us</a>
-        <a href="../core-problem.html" class="nav-link"><i data-lucide="alert-triangle"></i> Core Problems</a>
-        <a href="../index.html#services" class="nav-link"><i data-lucide="briefcase"></i> Services</a>
+        <a href="https://theswitchlabs.io" class="nav-link"><i data-lucide="home"></i> Home</a>
+        <!-- <a href="../about-us.html" class="nav-link"><i data-lucide="info"></i> About Us</a> -->
+        <a href="https://www.theswitchlabs.io/index.html#core-problems" class="nav-link"><i data-lucide="alert-triangle"></i> Core Problems</a>
+        <a href="https://www.theswitchlabs.io/index.html#services" class="nav-link"><i data-lucide="briefcase"></i> Services</a>
+        <a href="https://www.theswitchlabs.io/index.html#team" class="nav-link"><i data-lucide="users"></i> Team</a>
+        
         <div class="nav-title">CAMPAIGN</div>
         <a href="index.html" class="nav-link active"><i data-lucide="trophy"></i> Bounty</a>
         <div class="nav-title">SUPPORT</div>
-        <a href="../index.html#contact" class="nav-link"><i data-lucide="mail"></i> Contact</a>
+        <a href="https://www.theswitchlabs.io/index.html#contact" class="nav-link"><i data-lucide="mail"></i> Contact</a>
       </nav>
       <!-- <div class="vertical-text">switch</div> -->
     </aside>
@@ -776,7 +791,7 @@
       <div class="form-section" id="form">
         <div class="form-header">
           <h2>Submit Your Entry</h2>
-          <p>Entries reviewed within 48 hours. Good luck!</p>
+          <p>Entries being reviewed Good luck!</p>
         </div>
         <form id="bountyForm" action="https://formspree.io/f/xykaggon" method="POST">
           <div class="form-grid">
@@ -846,6 +861,23 @@
       } catch (error) {
         console.error('Error:', error);
       }
+    });
+
+    const cursorShadow = document.createElement('div');
+    cursorShadow.classList.add('cursor-shadow');
+    document.body.appendChild(cursorShadow);
+
+    document.addEventListener('mousemove', (e) => {
+      cursorShadow.style.left = e.clientX + 'px';
+      cursorShadow.style.top = e.clientY + 'px';
+    });
+
+    document.addEventListener('mouseleave', () => {
+      cursorShadow.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+      cursorShadow.style.opacity = '1';
     });
   </script>
 </body>
