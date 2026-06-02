@@ -589,6 +589,28 @@
       transform: translateY(-2px);
     }
 
+    .success-message {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .success-message i {
+      width: 64px;
+      height: 64px;
+      color: var(--accent);
+    }
+
+    .success-message p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+
     footer {
       text-align: center;
       padding: 4rem 3rem;
@@ -779,6 +801,10 @@
             <i data-lucide="send"></i> Submit
           </button>
         </form>
+        <div id="successMessage" class="success-message" style="display: none;">
+          <i data-lucide="check-circle"></i>
+          <p>Entry submitted successfully!</p>
+        </div>
       </div>
     </main>
   </div>
@@ -800,6 +826,27 @@
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
+
+    const form = document.getElementById('bountyForm');
+    const successMsg = document.getElementById('successMessage');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.style.display = 'none';
+          successMsg.style.display = 'block';
+          lucide.createIcons();
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
   </script>
 </body>
 
