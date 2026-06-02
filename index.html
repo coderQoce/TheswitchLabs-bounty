@@ -557,12 +557,20 @@
       color: var(--text);
       font-size: 1rem;
       font-family: inherit;
-      transition: border-color 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(0);
+    }
+
+    input:hover {
+      border-bottom-color: rgba(255, 255, 255, 0.3);
+      transform: translateX(4px);
     }
 
     input:focus {
       outline: none;
       border-bottom-color: var(--accent);
+      border-bottom-width: 2px;
+      transform: translateX(8px);
     }
 
     input::placeholder {
@@ -718,14 +726,17 @@
         <div class="nav-title">DISCOVER</div>
         <a href="https://theswitchlabs.io" class="nav-link"><i data-lucide="home"></i> Home</a>
         <!-- <a href="../about-us.html" class="nav-link"><i data-lucide="info"></i> About Us</a> -->
-        <a href="https://www.theswitchlabs.io/index.html#core-problems" class="nav-link"><i data-lucide="alert-triangle"></i> Core Problems</a>
-        <a href="https://www.theswitchlabs.io/index.html#services" class="nav-link"><i data-lucide="briefcase"></i> Services</a>
+        <a href="https://www.theswitchlabs.io/index.html#core-problems" class="nav-link"><i
+            data-lucide="alert-triangle"></i> Core Problems</a>
+        <a href="https://www.theswitchlabs.io/index.html#services" class="nav-link"><i data-lucide="briefcase"></i>
+          Services</a>
         <a href="https://www.theswitchlabs.io/index.html#team" class="nav-link"><i data-lucide="users"></i> Team</a>
-        
+
         <div class="nav-title">CAMPAIGN</div>
         <a href="index.html" class="nav-link active"><i data-lucide="trophy"></i> Bounty</a>
         <div class="nav-title">SUPPORT</div>
-        <a href="https://www.theswitchlabs.io/index.html#contact" class="nav-link"><i data-lucide="mail"></i> Contact</a>
+        <a href="https://www.theswitchlabs.io/index.html#contact" class="nav-link"><i data-lucide="mail"></i>
+          Contact</a>
       </nav>
       <!-- <div class="vertical-text">switch</div> -->
     </aside>
