@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SwitchDrops Bounty | Create & Win</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SwitchDrops Bounty Campaign</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     * {
@@ -16,26 +16,32 @@
     }
 
     :root {
-      --bg: #07070a;
-      --surface: #0f0f14;
-      --text: #ffffff;
-      --text-muted: #6b6b7b;
-      --accent: #e0115f;
-      --accent-glow: rgba(224, 17, 95, 0.3);
-      --accent-gradient: linear-gradient(135deg, #e0115f, #ff3b7f);
-      --video-color: #3b82f6;
-      --write-color: #10b981;
+      --pink: #e0115f;
+      --black: #000;
+      --white: #fff;
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: rotate(90deg) translateY(0);
       }
 
-      to {
-        opacity: 1;
+      50% {
+        transform: rotate(90deg) translateY(-10px);
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
         transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(8px);
       }
     }
 
@@ -43,602 +49,200 @@
 
       0%,
       100% {
-        transform: scale(1);
+        opacity: 0.3;
+      }
+
+      50% {
         opacity: 1;
       }
+    }
 
-      50% {
-        transform: scale(1.05);
-        opacity: 0.8;
+    @keyframes slide {
+      from {
+        transform: translateX(-20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
       }
     }
 
-    @keyframes shimmer {
-      0% {
-        background-position: -200% 0;
-      }
-
-      100% {
-        background-position: 200% 0;
-      }
-    }
-
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-
-    @keyframes glow {
-
-      0%,
-      100% {
-        box-shadow: 0 0 20px var(--accent-glow);
-      }
-
-      50% {
-        box-shadow: 0 0 40px var(--accent-glow), 0 0 60px rgba(224, 17, 95, 0.1);
-      }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 60px;
     }
 
     body {
-      background: var(--bg);
       font-family: 'Inter', sans-serif;
-      color: var(--text);
       line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      min-height: 100vh;
     }
 
     .sidebar {
-      padding: 2.5rem 2rem;
-      position: sticky;
+      position: fixed;
+      left: 0;
       top: 0;
+      width: 280px;
       height: 100vh;
-      background: #000000;
-      animation: fadeInUp 0.6s ease-out;
+      background: var(--white);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+    }
+
+    .sidebar-close {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--black);
+      cursor: pointer;
+      align-self: flex-end;
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar-close:hover {
+      transform: scale(1.1);
+      color: var(--pink);
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
       margin-bottom: 3rem;
     }
 
-    .logo-img {
-      width: 48px;
-      height: 48px;
-      object-fit: cover;
-      border-radius: 12px;
-      animation: pulse 2s infinite;
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    @keyframes gradientShift {
-
-      0%,
-      100% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
+    .logo-icon img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 8px;
     }
 
-    .logo span {
+    .logo-text {
+      color: var(--pink);
+      font-size: 1.25rem;
       font-weight: 800;
-      font-size: 1.1rem;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
     }
 
-    .vertical-text {
-      position: absolute;
-      bottom: 8rem;
-      left: 50%;
-      transform: translateX(-50%) rotate(-90deg);
-      font-size: 7rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-family: 'Inter', 'Arial Black', sans-serif;
-      color: #e0115f;
-      text-shadow: 0 0 40px rgba(224, 17, 95, 0.5), 0 0 80px rgba(224, 17, 95, 0.3);
-      animation: verticalFloat 4s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-
-    @keyframes verticalFloat {
-
-      0%,
-      100% {
-        transform: translateX(-50%) rotate(-90deg) translateX(0);
-      }
-
-      50% {
-        transform: translateX(-50%) rotate(-90deg) translateX(-15px);
-      }
-    }
-
-    @keyframes textGlow {
-      0% {
-        text-shadow: 0 0 40px rgba(224, 17, 95, 0.5), 0 0 80px rgba(224, 17, 95, 0.3);
-      }
-
-      100% {
-        text-shadow: 0 0 60px rgba(224, 17, 95, 0.8), 0 0 100px rgba(224, 17, 95, 0.5), 0 0 140px rgba(224, 17, 95, 0.3);
-      }
-    }
-
-    .close-btn {
-      display: none;
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      background: none;
-      border: none;
-      color: var(--text);
-      cursor: pointer;
-    }
-
-    .nav-title {
+    .nav-label {
       font-size: 0.65rem;
-      font-weight: 700;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: rgba(0, 0, 0, 0.4);
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-      margin: 2.5rem 0 1rem;
+      margin: 1.5rem 0 0.75rem;
     }
 
     .nav-link {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      padding: 0.6rem 0;
-      color: var(--text-muted);
-      font-size: 0.9rem;
+      padding: 0.65rem 0;
+      color: rgba(0, 0, 0, 0.7);
       text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-bottom: 1px solid transparent;
       transition: all 0.3s ease;
-      position: relative;
     }
 
-    .nav-link::before {
-      content: '';
-      position: absolute;
-      left: -1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 3px;
-      height: 0;
-      background: var(--accent-gradient);
-      transition: height 0.3s ease;
-      border-radius: 2px;
+    .nav-link:hover {
+      color: var(--pink);
+      border-bottom-color: var(--pink);
+      padding-left: 8px;
+      transform: translateX(4px);
     }
 
-    .nav-link:hover,
     .nav-link.active {
-      color: var(--accent);
-      padding-left: 0.5rem;
+      color: var(--pink);
     }
 
-    .nav-link:hover::before,
-    .nav-link.active::before {
-      height: 20px;
+    .nav-link i {
+      width: 18px;
+      height: 18px;
     }
 
-    .main {
-      padding: 3rem 5rem;
-      max-width: none;
-      animation: fadeInUp 0.8s ease-out 0.2s both;
+    .vertical-brand {
+      margin-top: auto;
+      align-self: center;
+      width: 80px;
+      height: 80px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .vertical-brand img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .vertical-brand:hover img {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(224, 17, 95, 0.3);
     }
 
     .mobile-header {
       display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--white);
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      animation: fadeInUp 0.5s ease-out;
+      padding: 0 1.5rem;
+      z-index: 999;
     }
 
-    .menu-btn {
+    .menu-toggle {
       background: none;
       border: none;
-      color: var(--text);
+      color: var(--black);
       cursor: pointer;
-      transition: transform 0.2s;
+      margin-right: 1rem;
+      transition: transform 0.3s ease, color 0.3s ease;
     }
 
-    .menu-btn:hover {
+    .menu-toggle:hover {
+      transform: scale(1.1);
+      color: var(--pink);
+    }
+
+    .mobile-logo {
+      width: 36px;
+      height: 36px;
+      margin-left: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-logo:hover {
       transform: scale(1.1);
     }
 
-    .alert {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 3rem;
-      color: var(--accent);
-      font-size: 0.9rem;
-      font-weight: 500;
-      animation: fadeInUp 0.6s ease-out 0.1s both;
-    }
-
-    .alert i {
-      animation: pulse 1.5s infinite;
-    }
-
-    .hero {
-      margin-bottom: 5rem;
-      animation: fadeInUp 0.8s ease-out 0.3s both;
-    }
-
-    .hero-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-    }
-
-    .badge {
-      background: var(--accent-gradient);
-      padding: 0.4rem 1rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      border-radius: 50px;
-      animation: glow 2s infinite;
-    }
-
-    h1 {
-      font-size: 4rem;
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
-    }
-
-    h1 span {
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      display: block;
-    }
-
-    .desc {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      max-width: 600px;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: var(--accent-gradient);
-      padding: 1rem 2rem;
-      font-weight: 700;
-      font-size: 1rem;
-      color: white;
-      text-decoration: none;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      animation: glow 2s infinite;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 40px rgba(224, 17, 95, 0.3);
-    }
-
-    /* Prize Cards */
-    .prizes-section {
-      margin-bottom: 5rem;
-      animation: fadeInUp 1s ease-out 0.4s both;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .section-header h2 {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--text-muted);
-    }
-
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
-    }
-
-    .prize-cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-    }
-
-    .prize-card {
-      padding: 2rem 0;
-      transition: all 0.3s ease;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .prize-card:hover {
-      padding-left: 1rem;
-    }
-
-    .prize-card:last-child {
-      border-bottom: none;
-    }
-
-    .prize-icon {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .prize-icon i {
-      width: 20px;
-      height: 20px;
-      color: var(--accent);
-    }
-
-    .prize-amount {
-      font-size: 3rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .prize-card.video .prize-amount {
-      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-    }
-
-    .prize-card.write .prize-amount {
-      background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-    }
-
-    .prize-label {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-    }
-
-    .winners-row {
-      display: flex;
-      gap: -8px;
-      margin-top: 1rem;
-    }
-
-    .winner-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(224, 17, 95, 0.3), rgba(255, 59, 127, 0.3));
-      border: 2px solid var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: white;
-      margin-left: -8px;
-      animation: float 3s infinite ease-in-out;
-    }
-
-    .winner-avatar:first-child {
-      margin-left: 0;
-      animation-delay: 0s;
-    }
-
-    .winner-avatar:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .winner-avatar:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    .winner-avatar:nth-child(4) {
-      animation-delay: 0.6s;
-    }
-
-    .winner-avatar:nth-child(5) {
-      animation-delay: 0.8s;
-    }
-
-    .winners-text {
-      margin-left: 1rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-    }
-
-    /* Form Section */
-    .form-section {
-      padding: 3rem 0;
-      animation: fadeInUp 1.2s ease-out 0.6s both;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      margin-top: 3rem;
-    }
-
-    .form-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .form-header h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 0.75rem;
-    }
-
-    .form-header p {
-      color: var(--text-muted);
-      font-size: 1rem;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .field {
-      position: relative;
-    }
-
-    .field.full {
-      grid-column: span 2;
-    }
-
-    label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-      transition: color 0.3s;
-    }
-
-    .field:focus-within label {
-      color: var(--accent);
-    }
-
-    input {
+    .mobile-logo img {
       width: 100%;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.75rem 0;
-      color: var(--text);
-      font-size: 1rem;
-      font-family: inherit;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: translateX(0);
+      height: 100%;
+      object-fit: contain;
+      border-radius: 6px;
     }
 
-    input:hover {
-      border-bottom-color: rgba(255, 255, 255, 0.3);
-      transform: translateX(4px);
-    }
-
-    input:focus {
-      outline: none;
-      border-bottom-color: var(--accent);
-      border-bottom-width: 2px;
-      transform: translateX(8px);
-    }
-
-    input::placeholder {
-      color: var(--text-muted);
-    }
-
-    .btn-submit {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--accent-gradient);
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: white;
-      cursor: pointer;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    .btn-submit:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-
-    .success-message {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 3rem 2rem;
-      text-align: center;
-      color: var(--text);
-    }
-
-    .success-message i {
-      width: 64px;
-      height: 64px;
-      color: var(--accent);
-    }
-
-    .success-message p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-    }
-
-    .cursor-shadow {
-      position: fixed;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 60px 20px rgba(255, 255, 255, 0.3);
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: opacity 0.2s ease;
-    }
-
-    footer {
-      text-align: center;
-      padding: 4rem 3rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      margin-top: 4rem;
+    .mobile-title {
+      display: none;
     }
 
     .overlay {
@@ -646,249 +250,1157 @@
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(4px);
-      z-index: 999;
+      z-index: 998;
     }
 
     .overlay.active {
       display: block;
     }
 
-    @media (max-width: 991px) {
-      .layout {
-        grid-template-columns: 1fr;
+    .main {
+      margin-left: 280px;
+    }
+
+    .hero {
+      background: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 5rem 6rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .hero-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--pink), transparent);
+      opacity: 0.3;
+    }
+
+    .hero-line.top {
+      top: 15%;
+    }
+
+    .hero-line.bottom {
+      bottom: 15%;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--pink);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .hero-badge::before,
+    .hero-badge::after {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--pink);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      color: var(--pink);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .stat {
+      padding-left: 1rem;
+      border-left: 2px solid var(--pink);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--black);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(0, 0, 0, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: rgba(0, 0, 0, 0.7);
+      max-width: 450px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* 3D Orbit Animation */
+    .orbit-container {
+      position: absolute;
+      top: 50%;
+      right: 5%;
+      transform: translateY(-50%);
+      width: 700px;
+      height: 700px;
+      perspective: 1000px;
+      z-index: 1;
+    }
+
+    .orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(224, 17, 95, 0.2);
+      border-radius: 50%;
+    }
+
+    .orbit-1 {
+      width: 280px;
+      height: 280px;
+      animation: rotateOrbit1 20s linear infinite;
+    }
+
+    .orbit-2 {
+      width: 450px;
+      height: 450px;
+      animation: rotateOrbit2 30s linear infinite reverse;
+    }
+
+    .orbit-3 {
+      width: 630px;
+      height: 630px;
+      animation: rotateOrbit3 40s linear infinite;
+    }
+
+    @keyframes rotateOrbit1 {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
       }
 
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    @keyframes rotateOrbit2 {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    @keyframes rotateOrbit3 {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .orbit-icon {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: var(--white);
+      border: 2px solid var(--pink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(224, 17, 95, 0.2);
+      animation: counterRotate 20s linear infinite;
+    }
+
+    .orbit-icon i {
+      width: 20px;
+      height: 20px;
+      color: var(--pink);
+    }
+
+    .orbit-1 .icon-1 {
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .orbit-1 .icon-2 {
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .orbit-1 .icon-3 {
+      left: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .orbit-2 .icon-4 {
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .orbit-2 .icon-5 {
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .orbit-2 .icon-6 {
+      left: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .orbit-2 .icon-7 {
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .orbit-3 .icon-8 {
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .orbit-3 .icon-9 {
+      bottom: 20%;
+      right: -20px;
+    }
+
+    .orbit-3 .icon-10 {
+      bottom: 20%;
+      left: -20px;
+    }
+
+    @keyframes counterRotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(-360deg);
+      }
+    }
+
+    .center-element {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    .center-circle {
+      width: 120px;
+      height: 120px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      box-shadow: 0 0 60px rgba(224, 17, 95, 0.4);
+      animation: pulseCenter 3s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    .center-circle img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    .center-circle span {
+      font-size: 0.5rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    @keyframes pulseCenter {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 60px rgba(224, 17, 95, 0.4);
+      }
+
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 80px rgba(224, 17, 95, 0.6);
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .orbit-container {
+        width: 350px;
+        height: 350px;
+        right: 5%;
+      }
+
+      .orbit-1 {
+        width: 150px;
+        height: 150px;
+      }
+
+      .orbit-2 {
+        width: 240px;
+        height: 240px;
+      }
+
+      .orbit-3 {
+        width: 340px;
+        height: 340px;
+      }
+
+      .center-circle {
+        width: 90px;
+        height: 90px;
+      }
+
+      .center-circle i {
+        width: 30px;
+        height: 30px;
+      }
+
+      .center-circle span {
+        font-size: 0.4rem;
+      }
+
+      .orbit-icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      .orbit-icon i {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .orbit-container {
+        position: relative;
+        top: auto;
+        right: auto;
+        transform: none;
+        margin: 2rem auto 3rem;
+        width: 320px;
+        height: 320px;
+      }
+
+      .orbit-1 {
+        width: 130px;
+        height: 130px;
+      }
+
+      .orbit-2 {
+        width: 210px;
+        height: 210px;
+      }
+
+      .orbit-3 {
+        width: 290px;
+        height: 290px;
+      }
+
+      .center-circle {
+        width: 75px;
+        height: 75px;
+      }
+
+      .center-circle img {
+        width: 55px;
+        height: 55px;
+      }
+
+      .center-circle span {
+        font-size: 0.4rem;
+      }
+
+      .orbit-icon {
+        width: 30px;
+        height: 30px;
+      }
+
+      .orbit-icon i {
+        width: 15px;
+        height: 15px;
+      }
+
+      .hero {
+        padding: 6rem 1.5rem 3rem;
+        min-height: auto;
+      }
+
+      .hero-badge {
+        font-size: 0.75rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero-stats {
+        gap: 1.5rem;
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+      }
+    }
+
+    .btn-pink {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--pink);
+      color: var(--black);
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-pink:hover {
+      transform: translateX(8px);
+    }
+
+    .btn-pink i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 1rem;
+    }
+
+    .scroll-indicator:hover {
+      color: var(--pink);
+      transform: translateX(-50%) translateY(5px);
+    }
+
+    .scroll-indicator i {
+      width: 20px;
+      height: 20px;
+      color: var(--pink);
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    .white-section {
+      background: var(--white);
+      color: var(--black);
+      padding: 5rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 2.5rem;
+    }
+
+    .prize-list {
+      margin-bottom: 4rem;
+    }
+
+    .prize-item {
+      display: flex;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .prize-item:hover {
+      padding-left: 15px;
+      border-bottom-color: var(--pink);
+    }
+
+    .prize-icon {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1.5rem;
+      border: 1px solid var(--pink);
+    }
+
+    .prize-icon i {
+      width: 24px;
+      height: 24px;
+      color: var(--pink);
+    }
+
+    .prize-details {
+      flex: 1;
+    }
+
+    .prize-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .prize-meta {
+      font-size: 0.85rem;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .prize-value {
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .timeline {
+      margin-bottom: 4rem;
+    }
+
+    .timeline-row {
+      display: flex;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-row:hover {
+      padding-left: 10px;
+      border-bottom-color: var(--pink);
+    }
+
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--pink);
+      margin-right: 1rem;
+      margin-top: 0.3rem;
+      flex-shrink: 0;
+    }
+
+    .timeline-info h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-info p {
+      font-size: 0.85rem;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .guidelines {
+      margin-bottom: 4rem;
+    }
+
+    .guide-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .guide-item:hover {
+      padding-left: 10px;
+      border-bottom-color: var(--pink);
+    }
+
+    .guide-bullet {
+      width: 6px;
+      height: 6px;
+      background: var(--pink);
+      margin-right: 0.75rem;
+      margin-top: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .guide-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .form-area {
+      max-width: 600px;
+    }
+
+    .form-row {
+      margin-bottom: 2rem;
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(0, 0, 0, 0.5);
+      margin-bottom: 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .form-row:focus-within label {
+      color: var(--pink);
+    }
+
+    .form-row input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      padding: 0.6rem 0;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .form-row input:hover {
+      border-bottom-color: rgba(0, 0, 0, 0.4);
+      padding-left: 5px;
+    }
+
+    .form-row input:focus {
+      outline: none;
+      border-bottom: 2px solid var(--pink);
+      padding-left: 10px;
+    }
+
+    .form-row input.error {
+      border-bottom-color: #ff0000;
+    }
+
+    .form-row input::placeholder {
+      color: rgba(0, 0, 0, 0.4);
+    }
+
+    .form-row.first-input {
+      margin-bottom: 2.5rem;
+    }
+
+    .form-row.first-input input {
+      font-size: 0.9rem;
+    }
+
+    .checkbox-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .checkbox-wrap input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--pink);
+      margin-top: 2px;
+    }
+
+    .checkbox-wrap label {
+      font-size: 0.85rem;
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    .checkbox-wrap a {
+      color: var(--pink);
+      text-decoration: none;
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--pink);
+      color: var(--black);
+      padding: 0.9rem 2.5rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover {
+      transform: translateX(8px);
+    }
+
+    .submit-btn i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .success-msg {
+      display: none;
+      padding: 2rem 0;
+    }
+
+    .success-msg.show {
+      display: block;
+      animation: slide 0.5s ease;
+    }
+
+    .success-msg i {
+      width: 40px;
+      height: 40px;
+      color: var(--pink);
+      margin-bottom: 0.75rem;
+    }
+
+    .success-msg h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .success-msg p {
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 991px) {
       .sidebar {
-        position: fixed;
         transform: translateX(-100%);
         transition: transform 0.3s ease;
-        z-index: 1000;
-        width: 280px;
-        background: #000000;
+        box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
       }
 
       .sidebar.open {
         transform: translateX(0);
       }
 
-      .close-btn {
+      .sidebar-close {
         display: block;
+      }
+
+      .vertical-brand {
+        display: none;
+      }
+
+      .main {
+        margin-left: 0;
+        margin-top: 60px;
       }
 
       .mobile-header {
         display: flex;
       }
 
-      .main {
-        padding: 1.5rem;
+      .hero {
+        padding: 5rem 1.25rem 4rem;
+        min-height: auto;
       }
 
-      h1 {
-        font-size: 2.5rem;
+      .hero h1 {
+        font-size: 1.75rem;
       }
 
-      .prize-cards {
-        grid-template-columns: 1fr;
+      .hero-stats {
+        gap: 1.5rem;
+        flex-wrap: wrap;
       }
 
-      .form-grid {
-        grid-template-columns: 1fr;
+      .stat-value {
+        font-size: 1.5rem;
       }
 
-      .field.full {
-        grid-column: span 1;
+      .scroll-indicator {
+        bottom: 1.5rem;
+        padding: 0.75rem;
       }
 
-      .form-section {
-        padding: 2rem;
+      .white-section {
+        padding: 2.5rem 1.25rem;
       }
 
-      .vertical-text {
-        display: none;
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .prize-item {
+        flex-wrap: wrap;
+        padding: 1rem 0;
+      }
+
+      .prize-value {
+        width: 100%;
+        margin-top: 0.5rem;
+        font-size: 1.25rem;
+      }
+
+      .timeline-row {
+        padding: 1rem 0;
+      }
+
+      .guide-item {
+        padding: 0.75rem 0;
+      }
+
+      .form-row {
+        margin-bottom: 1.5rem;
+      }
+
+      .submit-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .orbit-container {
+        width: 260px;
+        height: 260px;
+        margin: 1.5rem auto 2rem;
+      }
+
+      .orbit-1 {
+        width: 100px;
+        height: 100px;
+      }
+
+      .orbit-2 {
+        width: 170px;
+        height: 170px;
+      }
+
+      .orbit-3 {
+        width: 240px;
+        height: 240px;
+      }
+
+      .center-circle {
+        width: 60px;
+        height: 60px;
+      }
+
+      .center-circle img {
+        width: 45px;
+        height: 45px;
+      }
+
+      .center-circle span {
+        font-size: 0.35rem;
+      }
+
+      .orbit-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .orbit-icon i {
+        width: 12px;
+        height: 12px;
+      }
+
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .hero-desc {
+        font-size: 0.9rem;
+      }
+
+      .mobile-logo {
+        width: 32px;
+        height: 32px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-  <div class="layout">
-    <aside class="sidebar" id="sidebar">
-      <button class="close-btn" onclick="closeSidebar()">
-        <i data-lucide="x"></i>
-      </button>
-      <div class="logo">
-        <img src="assets/logo.jpg" alt="Switch Labs" class="logo-img">
-        <span>SwitchDrops</span>
-      </div>
-      <nav>
-        <div class="nav-title">DISCOVER</div>
-        <a href="https://theswitchlabs.io" class="nav-link"><i data-lucide="home"></i> Home</a>
-        <!-- <a href="../about-us.html" class="nav-link"><i data-lucide="info"></i> About Us</a> -->
-        <a href="https://www.theswitchlabs.io/#core-problems" class="nav-link"><i data-lucide="alert-triangle"></i> Core
-          Problems</a>
-        <a href="https://www.theswitchlabs.io/#services" class="nav-link"><i data-lucide="briefcase"></i>
-          Services</a>
-        <a href="https://www.theswitchlabs.io/#team" class="nav-link"><i data-lucide="users"></i> Team</a>
-
-        <div class="nav-title">CAMPAIGN</div>
-        <a href="index.html" class="nav-link active"><i data-lucide="trophy"></i> Bounty</a>
-        <div class="nav-title">SUPPORT</div>
-        <a href="https://www.theswitchlabs.io/#contact" class="nav-link"><i data-lucide="mail"></i>
-          Contact</a>
-      </nav>
-      <!-- <div class="vertical-text">switch</div> -->
-    </aside>
-    <main class="main">
-      <div class="mobile-header">
-        <button class="menu-btn" onclick="toggleSidebar()">
-          <i data-lucide="menu"></i>
-        </button>
-        <span>SwitchDrops Bounty</span>
-      </div>
-
-      <div class="alert">
-        <i data-lucide="flame"></i>
-        <span>SwitchDrops is heating up Submit now!</span>
-      </div>
-
-      <div class="hero">
-        <div class="hero-header">
-          <img src="assets/logo.jpg" alt="Switch Labs">
-          <span class="badge">Active Campaign</span>
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" onclick="toggleSidebar()"><i data-lucide="x"></i></button>
+    <div class="logo">
+      <div class="logo-icon"><img src="assets/logo1.jpg" alt="Switch Labs"></div>
+      <span class="logo-text">SwitchDrops</span>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Discover</div>
+      <a href="https://theswitchlabs.io" class="nav-link"><i data-lucide="home"></i> Home</a>
+      <a href="https://www.theswitchlabs.io/#core-problems" class="nav-link"><i data-lucide="alert-triangle"></i> Core
+        Problems</a>
+      <a href="https://www.theswitchlabs.io/#services" class="nav-link"><i data-lucide="briefcase"></i> Services</a>
+      <a href="https://www.theswitchlabs.io/#team" class="nav-link"><i data-lucide="users"></i> Team</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Campaign</div>
+      <a href="./" class="nav-link active"><i data-lucide="trophy"></i> Bounty</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Support</div>
+      <a href="https://www.theswitchlabs.io/#contact" class="nav-link"><i data-lucide="mail"></i> Contact</a>
+    </div>
+    <div class="vertical-brand"><img src="assets/logo1.jpg" alt="Switch Labs"></div>
+  </aside>
+  <header class="mobile-header">
+    <button class="menu-toggle" onclick="toggleSidebar()"><i data-lucide="menu"></i></button>
+    <span class="mobile-title">SwitchDrops</span>
+    <div class="mobile-logo"><img src="assets/logo.jpg" alt="Switch Labs"></div>
+  </header>
+  <main class="main">
+    <section class="hero">
+      <div class="orbit-container">
+        <div class="orbit orbit-1">
+          <div class="orbit-icon icon-1"><i data-lucide="zap"></i></div>
+          <div class="orbit-icon icon-2"><i data-lucide="video"></i></div>
+          <div class="orbit-icon icon-3"><i data-lucide="file-text"></i></div>
         </div>
-        <h1>Create Content.<br><span>Win Big.</span></h1>
-        <p class="desc">Submit your video or written content about Switch Labs. Two categories, amazing prizes. Join the
-          creator revolution.</p>
-        <a href="#form" class="btn-primary">
-          <i data-lucide="zap"></i> Submit Your Entry
-        </a>
-      </div>
-
-      <div class="prizes-section">
-        <div class="section-header">
-          <h2>Prize Categories</h2>
-          <div class="section-line"></div>
+        <div class="orbit orbit-2">
+          <div class="orbit-icon icon-4"><i data-lucide="trophy"></i></div>
+          <div class="orbit-icon icon-5"><i data-lucide="send"></i></div>
+          <div class="orbit-icon icon-6"><i data-lucide="flame"></i></div>
+          <div class="orbit-icon icon-7"><i data-lucide="star"></i></div>
         </div>
-        <div class="prize-cards">
-          <div class="prize-card video">
-            <div class="prize-icon"><i data-lucide="video"></i> Video Content</div>
-            <div class="prize-amount">$900</div>
-            <div class="winners-row">
-              <div class="winner-avatar">1</div>
-              <div class="winner-avatar">2</div>
-              <div class="winner-avatar">3</div>
-              <div class="winner-avatar">4</div>
-              <div class="winner-avatar">5</div>
-              <span class="winners-text">5 Winners</span>
-            </div>
-          </div>
-          <div class="prize-card write">
-            <div class="prize-icon"><i data-lucide="file-text"></i> Written Content</div>
-            <div class="prize-amount">$600</div>
-            <div class="winners-row">
-              <div class="winner-avatar">1</div>
-              <div class="winner-avatar">2</div>
-              <div class="winner-avatar">3</div>
-              <div class="winner-avatar">4</div>
-              <div class="winner-avatar">5</div>
-              <span class="winners-text">5 Winners</span>
-            </div>
+        <div class="orbit orbit-3">
+          <div class="orbit-icon icon-8"><i data-lucide="gift"></i></div>
+          <div class="orbit-icon icon-9"><i data-lucide="target"></i></div>
+          <div class="orbit-icon icon-10"><i data-lucide="award"></i></div>
+        </div>
+        <div class="center-element">
+          <div class="center-circle">
+            <img src="assets/logo1.jpg" alt="Switch Labs">
+            <span>THE SWITCH LABS.</span>
           </div>
         </div>
       </div>
-
-      <div class="form-section" id="form">
-        <div class="form-header">
-          <h2>Submit Your Entry</h2>
-          <p>Entries being reviewed Good luck!</p>
+      <div class="hero-line top"></div>
+      <div class="hero-line bottom"></div>
+      <div class="hero-badge"><i data-lucide="flame"></i> Live Campaign</div>
+      <h1>SwitchDrops<br><span>Bounty Campaign</span></h1>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-value">$1,500</div>
+          <div class="stat-label">Prize Pool</div>
         </div>
-        <form id="bountyForm" action="https://formspree.io/f/xykaggon" method="POST">
-          <div class="form-grid">
-            <div class="field">
-              <label>Full Name</label>
-              <input type="text" name="name" placeholder="Your full name" required>
-            </div>
-            <div class="field">
-              <label>Email</label>
-              <input type="email" name="email" placeholder="your@email.com" required>
-            </div>
-            <div class="field full">
-              <label>Video Content Link (optional)</label>
-              <input type="url" name="video_link" placeholder="https://youtube.com/... or https://tiktok.com/...">
-            </div>
-            <div class="field full">
-              <label>Written Content Link (optional)</label>
-              <input type="url" name="writeup_link" placeholder="https://docs.google.com/... or blog link">
-            </div>
+        <div class="stat">
+          <div class="stat-value">10</div>
+          <div class="stat-label">Winners</div>
+        </div>
+      </div>
+      <p class="hero-desc">Create compelling content about Switch Labs and win big. Submit videos or written pieces
+        showcasing our Web3 solutions. Two categories, amazing prizes.</p>
+      <a href="#details" class="scroll-indicator">
+        <span>Scroll</span>
+        <i data-lucide="chevron-down"></i>
+      </a>
+    </section>
+    <section class="white-section" id="details">
+      <div class="prize-list">
+        <div class="section-label">Prizes</div>
+        <h2 class="section-title">What You Can Win</h2>
+        <div class="prize-item">
+          <div class="prize-icon"><i data-lucide="video"></i></div>
+          <div class="prize-details">
+            <div class="prize-name">Video Content Prize</div>
+            <div class="prize-meta">X platforms</div>
           </div>
-          <button type="submit" class="btn-submit">
-            <i data-lucide="send"></i> Submit
-          </button>
+          <div class="prize-value">$900</div>
+        </div>
+        <div class="prize-item">
+          <div class="prize-icon"><i data-lucide="file-text"></i></div>
+          <div class="prize-details">
+            <div class="prize-name">Written Content Prize</div>
+            <div class="prize-meta">Blog posts, articles, documentation</div>
+          </div>
+          <div class="prize-value">$600</div>
+        </div>
+        <div class="prize-item" style="border-bottom: 2px solid var(--pink);">
+          <div class="prize-details">
+            <div class="prize-name">Total Winners</div>
+          </div>
+          <div class="prize-value">10 Winners</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="section-label">Timeline</div>
+        <h2 class="section-title">Important Dates</h2>
+        <div class="timeline-row">
+          <div class="timeline-dot"></div>
+          <div class="timeline-info">
+            <h4>Competition Start</h4>
+            <p>June 1, 2026</p>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-dot"></div>
+          <div class="timeline-info">
+            <h4>Submission Deadline</h4>
+            <p>June 30, 2026</p>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-dot"></div>
+          <div class="timeline-info">
+            <h4>Winners Announced</h4>
+            <p>July 7, 2026</p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="guidelines">
+        <div class="section-label">Rules</div>
+        <h2 class="section-title">Submission Guidelines</h2>
+        <div class="guide-item">
+          <div class="guide-bullet"></div>
+          <div class="guide-text">Create original content about Switch Labs and our Web3 infrastructure solutions</div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-bullet"></div>
+          <div class="guide-text">Submit video content via YouTube, TikTok, or other public platforms</div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-bullet"></div>
+          <div class="guide-text">Submit written content via blog posts, Medium, or technical documentation</div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-bullet"></div>
+          <div class="guide-text">Include #SwitchLabs and #SwitchDrops hashtags in your content</div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-bullet"></div>
+          <div class="guide-text">All submitted content must be publicly accessible during judging period</div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-bullet"></div>
+          <div class="guide-text">Multiple submissions allowed per participant across both categories</div>
+        </div>
+      </div> -->
+      <div class="form-area" id="form">
+        <div class="section-label">Submit</div>
+        <h2 class="section-title">Enter the Competition</h2>
+        <form id="bountyForm" action="https://formspree.io/f/mdavoozg" method="POST">
+          <div class="form-row first-input">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" placeholder="Your full name" required>
+          </div>
+          <div class="form-row">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-row">
+            <label for="video">Video Submission Link</label>
+            <input type="url" id="video" name="video_link"
+              placeholder="https://youtube.com/... or https://tiktok.com/...">
+          </div>
+          <div class="form-row">
+            <label for="written">Written Content Link</label>
+            <input type="url" id="written" name="written_link" placeholder="https://blog.example.com/...">
+          </div>
+          <button type="submit" class="submit-btn">Submit Entry <i data-lucide="send"></i></button>
         </form>
-        <div id="successMessage" class="success-message" style="display: none;">
+        <div class="success-msg" id="successMsg">
           <i data-lucide="check-circle"></i>
-          <p>Entry submitted successfully!</p>
+          <h3>Entry Submitted!</h3>
+          <p>We'll review your submission and contact you if you're a winner.</p>
         </div>
       </div>
-    </main>
-  </div>
-  <footer>
-    <p>© 2026 SWITCH LABS — All rights reserved.</p>
-  </footer>
+    </section>
+  </main>
   <script>
     lucide.createIcons();
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
     function toggleSidebar() {
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('active');
-      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('active');
     }
-    function closeSidebar() {
-      sidebar.classList.remove('open');
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
-
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
     const form = document.getElementById('bountyForm');
-    const successMsg = document.getElementById('successMessage');
+    const successMsg = document.getElementById('successMsg');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const formData = new FormData(form);
+      let valid = true;
+      form.querySelectorAll('input[required]').forEach(input => {
+        if (!input.value.trim()) {
+          input.classList.add('error');
+          valid = false;
+        } else {
+          input.classList.remove('error');
+        }
+      });
+      if (!document.getElementById('agree').checked) valid = false;
+      if (!valid) return;
       try {
         const response = await fetch(form.action, {
           method: 'POST',
-          body: formData,
+          body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
         if (response.ok) {
           form.style.display = 'none';
-          successMsg.style.display = 'block';
+          successMsg.classList.add('show');
           lucide.createIcons();
         }
-      } catch (error) {
-        console.error('Error:', error);
+      } catch (err) {
+        console.error('Error:', err);
       }
     });
-
-    const cursorShadow = document.createElement('div');
-    cursorShadow.classList.add('cursor-shadow');
-    document.body.appendChild(cursorShadow);
-
-    document.addEventListener('mousemove', (e) => {
-      cursorShadow.style.left = e.clientX + 'px';
-      cursorShadow.style.top = e.clientY + 'px';
-    });
-
-    document.addEventListener('mouseleave', () => {
-      cursorShadow.style.opacity = '0';
-    });
-
-    document.addEventListener('mouseenter', () => {
-      cursorShadow.style.opacity = '1';
+    form.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', () => input.classList.remove('error'));
     });
   </script>
 </body>
