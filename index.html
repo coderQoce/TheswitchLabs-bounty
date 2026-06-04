@@ -1002,7 +1002,7 @@
     .success-msg i {
       width: 40px;
       height: 40px;
-      color: var(--pink);
+      color: #22c55e;
       margin-bottom: 0.75rem;
     }
 
@@ -1010,11 +1010,63 @@
       font-size: 1.25rem;
       font-weight: 700;
       margin-bottom: 0.3rem;
+      color: #22c55e;
     }
 
     .success-msg p {
       color: rgba(0, 0, 0, 0.6);
       font-size: 0.9rem;
+    }
+
+    .error-msg {
+      display: none;
+      padding: 2rem 0;
+    }
+
+    .error-msg.show {
+      display: block;
+      animation: slide 0.5s ease;
+    }
+
+    .error-msg i {
+      width: 40px;
+      height: 40px;
+      color: #ef4444;
+      margin-bottom: 0.75rem;
+    }
+
+    .error-msg h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: #ef4444;
+    }
+
+    .error-msg p {
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 0.9rem;
+    }
+
+    .submit-btn.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .submit-btn.loading::after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--black);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-left: 0.5rem;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     @media (max-width: 991px) {
@@ -1227,7 +1279,7 @@
       <div class="hero-line top"></div>
       <div class="hero-line bottom"></div>
       <div class="hero-badge"><i data-lucide="flame"></i> Live Campaign</div>
-      <h1>SwitchDrops<br><span>Bounty Campaign</span></h1>
+      <h1>SwitchDrops</h1>
       <div class="hero-stats">
         <div class="stat">
           <div class="stat-value">$1,500</div>
@@ -1353,6 +1405,11 @@
           <h3>Entry Submitted!</h3>
           <p>We'll review your submission and contact you if you're a winner.</p>
         </div>
+        <div class="error-msg" id="errorMsg">
+          <i data-lucide="alert-circle"></i>
+          <h3>Submission Failed</h3>
+          <p>Something went wrong. Please try again later.</p>
+        </div>
       </div>
     </section>
   </main>
@@ -1371,6 +1428,9 @@
     });
     const form = document.getElementById('bountyForm');
     const successMsg = document.getElementById('successMsg');
+    const errorMsg = document.getElementById('errorMsg');
+    const submitBtn = form.querySelector('.submit-btn');
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       let valid = true;
@@ -1382,21 +1442,38 @@
           input.classList.remove('error');
         }
       });
-      if (!document.getElementById('agree').checked) valid = false;
       if (!valid) return;
+
+      // Show loading state
+      submitBtn.classList.add('loading');
+      submitBtn.innerHTML = 'Submitting...';
+
       try {
         const response = await fetch(form.action, {
           method: 'POST',
           body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
+
+        submitBtn.classList.remove('loading');
+
         if (response.ok) {
           form.style.display = 'none';
           successMsg.classList.add('show');
+          errorMsg.classList.remove('show');
           lucide.createIcons();
+        } else {
+          throw new Error('Submission failed');
         }
       } catch (err) {
         console.error('Error:', err);
+        submitBtn.classList.remove('loading');
+        submitBtn.innerHTML = 'Submit Entry <i data-lucide="send"></i>';
+        lucide.createIcons();
+        form.style.display = 'none';
+        successMsg.classList.remove('show');
+        errorMsg.classList.add('show');
+        lucide.createIcons();
       }
     });
     form.querySelectorAll('input').forEach(input => {
