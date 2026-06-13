@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>SPOTR Drops  Stake Your Thesis, Earn Your Conviction</title>
+  <title>SPOTR Drops | Stake Your Thesis, Earn Your Conviction</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -20,6 +20,8 @@
       --black: #000;
       --white: #fff;
       --gold: #FFD700;
+      --soft-gray: #f9f9f9;
+      --muted-text: rgba(0, 0, 0, 0.65);
     }
 
     @keyframes float {
@@ -31,18 +33,6 @@
 
       50% {
         transform: translateY(-10px);
-      }
-    }
-
-    @keyframes bounce {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(8px);
       }
     }
 
@@ -447,17 +437,100 @@
       }
     }
 
-    .hero-desc {
-      font-size: 1rem;
-      color: rgba(0, 0, 0, 0.7);
-      max-width: 450px;
-      line-height: 1.7;
-      margin-bottom: 2rem;
+    /* Expanded hero description — clean column, balanced lines, vertical list */
+    .hero-description-group {
+      max-width: 620px;
+      margin-bottom: 2.5rem;
       position: relative;
       z-index: 10;
     }
 
-    /* Airdrop Tokens Animation */
+    .hero-desc {
+      font-size: 1rem;
+      color: rgba(0, 0, 0, 0.8);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-desc strong {
+      color: var(--pink);
+      font-weight: 700;
+    }
+
+    .goals-headline {
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 1.5rem 0 1rem;
+      letter-spacing: -0.2px;
+      color: var(--black);
+      border-left: 3px solid var(--gold);
+      padding-left: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .goals-headline i {
+      color: var(--pink);
+      width: 18px;
+      height: 18px;
+    }
+
+    .content-types {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin: 0.75rem 0 1.25rem;
+    }
+
+    .type-pill {
+      background: transparent;
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: none;
+      transition: all 0.2s ease;
+    }
+
+    .type-pill i {
+      width: 18px;
+      height: 18px;
+      color: var(--pink);
+      flex-shrink: 0;
+    }
+
+    .type-pill span {
+      line-height: 1.4;
+    }
+
+    .type-pill:hover {
+      transform: translateX(5px);
+      color: var(--pink);
+    }
+
+    .extra-notes {
+      font-size: 0.9rem;
+      color: var(--muted-text);
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .extra-notes i {
+      width: 18px;
+      height: 18px;
+      margin-top: 0.15rem;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+
     .airdrop-container {
       position: absolute;
       top: 0;
@@ -481,7 +554,6 @@
       color: var(--pink);
     }
 
-    /* 20 tokens with $, ₿,  */
     .token:nth-child(1) {
       left: 8%;
       animation-duration: 3.2s;
@@ -642,7 +714,6 @@
       object-fit: contain;
     }
 
-    /* Responsive fixes for hero + animations */
     @media (max-width: 1200px) {
       .airdrop-container {
         width: 400px;
@@ -736,6 +807,24 @@
       .time-unit span {
         font-size: 0.9rem;
       }
+
+      .hero-description-group {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .type-pill {
+        font-size: 0.85rem;
+      }
+
+      .hero-desc {
+        font-size: 0.92rem;
+      }
+
+      .goals-headline {
+        font-size: 0.92rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -774,7 +863,11 @@
       }
 
       .hero-desc {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+      }
+
+      .goals-headline {
+        font-size: 0.85rem;
       }
 
       .airdrop-container {
@@ -793,6 +886,14 @@
       .center-circle img {
         width: 50px;
         height: 50px;
+      }
+
+      .type-pill {
+        font-size: 0.8rem;
+      }
+
+      .extra-notes {
+        font-size: 0.8rem;
       }
     }
 
@@ -845,7 +946,9 @@
     }
 
     @media (max-width: 768px) {
-      .prize-item {
+
+      .prize-item,
+      .timeline-row {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.75rem;
@@ -915,7 +1018,6 @@
       color: rgba(0, 0, 0, 0.5);
     }
 
-    /* Guidelines - only TWO requirements */
     .guidelines {
       margin-bottom: 4rem;
     }
@@ -925,7 +1027,6 @@
       align-items: flex-start;
       padding: 1rem 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.2s ease;
     }
 
     .guide-bullet {
@@ -944,7 +1045,6 @@
       font-weight: 500;
     }
 
-    /* Form */
     .form-area {
       max-width: 600px;
     }
@@ -960,7 +1060,6 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: rgba(0, 0, 0, 0.5);
-      transition: color 0.3s;
     }
 
     .form-row input {
@@ -1119,8 +1218,35 @@
           <div class="stat-label">Winners</div>
         </div>
       </div>
-      <p class="hero-desc"><strong>SPOTR: Conviction Market.</strong> Stake your thesis, share your reasoning, earn for
-        being right & articulate. It's not just betting  it's rewarding high-quality conviction.</p>
+
+
+      <div class="hero-description-group">
+        <div class="hero-desc">
+          We're running a drop campaign to help spread the word about <strong>SPOTR — the Conviction Market</strong>
+           where you stake your thesis, share your reasoning, and earn for being right (and articulate about it).
+            It's not just betting  it's rewarding high-quality reasoning and conviction in prediction-style markets.
+             Every strong opinion adds signal and can directly impact prices.
+        </div>
+        <div class="goals-headline">
+          <i data-lucide="target"></i> Drop Campaign Goals
+        </div>
+        <div class="hero-desc">
+          We want creative, high-quality content that introduces SPOTR to new audiences,
+           explains the unique "conviction" mechanic, and drives sign-ups + deposits.
+        </div>
+        <div class="content-types">
+          <div class="type-pill"><i data-lucide="message-square"></i> <span>Short X threads explaining how SPOTR works with examples</span></div>
+          <div class="type-pill"><i data-lucide="video"></i> <span>Videos showcasing the AI scoring + staking flow</span></div>
+          <div class="type-pill"><i data-lucide="book-open"></i> <span>Educational posts comparing SPOTR to traditional prediction markets</span></div>
+          <div class="type-pill"><i data-lucide="thumbs-up"></i> <span>Testimonials after trying it yourself (deposit, stake, write a thesis)</span></div>
+          <div class="type-pill"><i data-lucide="sparkles"></i> <span>Creative takes on current live markets</span></div>
+        </div>
+        <div class="extra-notes">
+          <i data-lucide="trending-up"></i>
+          <span>Droppers rewarded based on <strong>quality, reach/engagement, creativity, and how well you capture the "stake your thesis, earn for your reasoning" vibe.</strong> Top Droppers can expect strong payouts. If you're a content creator, video creator, or just someone who loves sharp takes and on-chain markets, this is your chance to get involved early.</span>
+        </div>
+      </div>
+
       <a href="#details" class="scroll-indicator"><span>Scroll</span> <i data-lucide="chevron-down"></i></a>
     </section>
 
@@ -1132,7 +1258,7 @@
           <div class="prize-icon"><i data-lucide="video"></i></div>
           <div class="prize-details">
             <div class="prize-name">Video Content Prize</div>
-            <div class="prize-meta">X </div>
+            <div class="prize-meta">X / short-form</div>
           </div>
           <div class="prize-value">$900</div>
         </div>
@@ -1140,7 +1266,7 @@
           <div class="prize-icon"><i data-lucide="file-text"></i></div>
           <div class="prize-details">
             <div class="prize-name">Written Content Prize</div>
-            <div class="prize-meta">X threads </div>
+            <div class="prize-meta">X threads / deep dives</div>
           </div>
           <div class="prize-value">$600</div>
         </div>
@@ -1277,7 +1403,6 @@
       }
     });
 
-    // Countdown timer: 21 days from now
     let endDate = new Date();
     endDate.setDate(endDate.getDate() + 21);
     endDate.setHours(23, 59, 59, 999);
